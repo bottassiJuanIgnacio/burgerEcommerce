@@ -75,7 +75,7 @@ function eliminarDelCarrito(idDeProducto){
 
 document.write(acumulador);
 
-//hello
+
 
 //Listado de hamburguesas 
 let listado = productosMayorPrecio.concat(productosMenorPrecio);
