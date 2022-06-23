@@ -22,22 +22,24 @@ for (let i = 0; i < productos.length; i++) {
 
 let productosMayorPrecio = [];
 let productosMenorPrecio = [];
-
+let listadoCarrito =[];
 let productosEnElCarrito =[];
 let acumulador = ``;
 for (let i = 0; i < productos.length; i++) {
     if (productos[i].stock) {
-    acumulador += `<div> ${productos[i].burger} - $${productos[i].price} <br>
+    acumulador += `<div> 
+    <br>
+    ${productos[i].burger} - $${productos[i].price} <br>
     <button onclick="agregarAlCarrito(${productos[i].id})">Agregar</button> </div>
     <br>
     <button onclick="eliminarDelCarrito(${productos[i].id})">Eliminar</button> </div>`;
     }
-    //Probando PUSH
-    if (productos[i].price > 1300 ) {
-        productosMayorPrecio.push(productos[i].burger)   
-    }else{
-        productosMenorPrecio.push(productos[i].burger)
-    }
+    // //Probando PUSH
+    // if (productos[i].price > 1300 ) {
+    //     productosMayorPrecio.push(productos[i].burger)   
+    // }else{
+    //     productosMenorPrecio.push(productos[i].burger)
+    // }
     
 }
 
@@ -51,23 +53,38 @@ function precioTotal(productosEnElCarrito) {
 function agregarAlCarrito(idDeProducto){
     
     const indiceEncontrado = productos.findIndex(producto => producto.id == idDeProducto);
-    
     productosEnElCarrito.push(productos[indiceEncontrado]);
-    
-    console.log(productosEnElCarrito);
-    console.log(precioTotal(productosEnElCarrito));
+    listadoCarrito.push(productos[indiceEncontrado].burger);
+
+    let total = precioTotal(productosEnElCarrito);
+
+    alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
+    alert("El precio total en el carrito es de $" + total);
+
+    //console.log(productosEnElCarrito);
+    //console.log(precioTotal(productosEnElCarrito));
     
 }
-
+/*TODO: Al eliminar: 1) elimina todo sin verificar si es ese el producto que se habia agregado anteriormente.
+* 2) Siempre se elimina el ultimo producto agregado pero si el cliente quiere agregar muchos productos y 
+* borrar uno en especifico no puede. 
+*/
 //Comparo ID y pop
 function eliminarDelCarrito(idDeProducto){
     
     const indiceEncontrado = productos.findIndex(producto => producto.id == idDeProducto);
-    
+    console.log(indiceEncontrado);
     productosEnElCarrito.pop(productos[indiceEncontrado]);
+    listadoCarrito.pop(productos[indiceEncontrado].burger);
     
-    console.log(productosEnElCarrito);
-    console.log(precioTotal(productosEnElCarrito));
+    //Funcion total precio del carrito
+    let total = precioTotal(productosEnElCarrito);
+
+    alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
+    alert("El precio total en el carrito es de $" + total);
+
+    //console.log(productosEnElCarrito);
+    //console.log(total);
     
 }
 
