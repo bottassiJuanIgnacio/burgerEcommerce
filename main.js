@@ -5,26 +5,14 @@ const productos = [
     {id: 4,burger: "Burger Stacker Quintuple", price: 1480 , stock: true},
     {id: 5,burger: "Doble Cheese Burger", price: 1170 , stock: true}
 ];
-/** 
-for (let i = 0; i < productos.length; i++) {
-    let burger= prompt("Elija su hamburguesa");
-    let total = 0;
-    if (burger == productos[i].burger && productos[i].stock) {
-        total++
-        console.log(productos[i]);
-        console.log("Productos totales "+total);
-    }
-    
-    
-}*/
-
-
 
 let productosMayorPrecio = [];
 let productosMenorPrecio = [];
 let listadoCarrito =[];
 let productosEnElCarrito =[];
 let acumulador = ``;
+let padreCarrito = document.createElement("span");
+
 for (let i = 0; i < productos.length; i++) {
     if (productos[i].stock) {
     acumulador += `<div> 
@@ -34,12 +22,7 @@ for (let i = 0; i < productos.length; i++) {
     <br>
     <button onclick="eliminarDelCarrito(${productos[i].id})">Eliminar</button> </div>`;
     }
-    // //Probando PUSH
-    // if (productos[i].price > 1300 ) {
-    //     productosMayorPrecio.push(productos[i].burger)   
-    // }else{
-    //     productosMenorPrecio.push(productos[i].burger)
-    // }
+
     
 }
 
@@ -57,14 +40,16 @@ function agregarAlCarrito(idDeProducto){
     listadoCarrito.push(productos[indiceEncontrado].burger);
 
     let total = precioTotal(productosEnElCarrito);
-
+    
+    padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
+    
     alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
-    alert("El precio total en el carrito es de $" + total);
-
+     
     //console.log(productosEnElCarrito);
     //console.log(precioTotal(productosEnElCarrito));
     
 }
+
 /*TODO: Al eliminar: 1) elimina todo sin verificar si es ese el producto que se habia agregado anteriormente.
 * 2) Siempre se elimina el ultimo producto agregado pero si el cliente quiere agregar muchos productos y 
 * borrar uno en especifico no puede. 
@@ -79,10 +64,11 @@ function eliminarDelCarrito(idDeProducto){
     
     //Funcion total precio del carrito
     let total = precioTotal(productosEnElCarrito);
-
+    
+    padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
+    
     alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
-    alert("El precio total en el carrito es de $" + total);
-
+        
     //console.log(productosEnElCarrito);
     //console.log(total);
     
@@ -90,6 +76,7 @@ function eliminarDelCarrito(idDeProducto){
 
 
 
+document.body.append(padreCarrito);
 document.write(acumulador);
 
 
