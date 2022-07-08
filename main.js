@@ -13,16 +13,6 @@ let productosEnElCarrito =[];
 let acumulador = ``;
 let padreCarrito = document.createElement("span");
 
-// for (let i = 0; i < productos.length; i++) {
-//     if (productos[i].stock) {
-//     acumulador += `<div> 
-//     <br>
-//     ${productos[i].burger} - $${productos[i].price} <br>
-//     <button onclick="agregarAlCarrito(${productos[i].id})">Agregar</button> </div>
-//     <br>
-//     <button onclick="eliminarDelCarrito(${productos[i].id})">Eliminar</button> </div>`;
-//     }
-
     
 // };
 
@@ -74,10 +64,7 @@ function precioTotal(productosEnElCarrito) {
 
 const cartStorage=localStorage.getItem('carrito');
 
-const carrito = JSON.parse(cartStorage)??[];
-
-document.write('Tenes en el carrito:'+carrito.length);
-
+const carrito = JSON.parse(cartStorage) ??  [];
 
 
 function agregarAlCarrito(idDeProducto){
@@ -92,11 +79,9 @@ function agregarAlCarrito(idDeProducto){
     listadoCarrito.push(productos[indiceEncontrado].burger);
 
     let total = precioTotal(productosEnElCarrito);
+       
     
-    padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
-    
-    
-    document.getElementById("cart").innerHTML =  `<span>Precio del carrito : ${listadoCarrito.length}</span>`;
+    document.getElementById("cart").innerHTML =  `<span> Carrito:${listadoCarrito.length} - $${total}</span>`;
     
     //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
     
@@ -123,9 +108,8 @@ function eliminarDelCarrito(idDeProducto){
     //Funcion total precio del carrito
     let total = precioTotal(productosEnElCarrito);
     
-    padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
-    
-    document.getElementById("cart").innerHTML =  `<span>Precio del carrito : ${listadoCarrito.length}</span>`;
+
+    document.getElementById("cart").innerHTML =  `<span> Carrito:${listadoCarrito.length} - $${total}</span>`;
 
     //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
         
