@@ -72,34 +72,52 @@ function precioTotal(productosEnElCarrito) {
     
 }
 
-//Comparo ID y push
+const cartStorage=localStorage.getItem('carrito');
+
+const carrito = JSON.parse(cartStorage)??[];
+
+document.write('Tenes en el carrito:'+carrito.length);
+
+
+
 function agregarAlCarrito(idDeProducto){
     
+    //Comparo ID y push
     const indiceEncontrado = productos.findIndex(producto => producto.id == idDeProducto);
     productosEnElCarrito.push(productos[indiceEncontrado]);
+    const carritoJSON = JSON.stringify(productosEnElCarrito);
+    localStorage.setItem("carrito", carritoJSON);
+    
+
     listadoCarrito.push(productos[indiceEncontrado].burger);
 
     let total = precioTotal(productosEnElCarrito);
     
     padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
     
-    alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
-     
-    //console.log(productosEnElCarrito);
-    //console.log(precioTotal(productosEnElCarrito));
+    
+    document.getElementById("cart").innerHTML =  `<span>Precio del carrito : ${listadoCarrito.length}</span>`;
+    
+    //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
     
 }
+
+
+
 
 /*TODO: Al eliminar: 1) elimina todo sin verificar si es ese el producto que se habia agregado anteriormente.
 * 2) Siempre se elimina el ultimo producto agregado pero si el cliente quiere agregar muchos productos y 
 * borrar uno en especifico no puede. 
 */
-//Comparo ID y pop
 function eliminarDelCarrito(idDeProducto){
     
+    //Comparo ID y pop
     const indiceEncontrado = productos.findIndex(producto => producto.id == idDeProducto);
-    console.log(indiceEncontrado);
     productosEnElCarrito.pop(productos[indiceEncontrado]);
+    // Paso de obj a txt para mandarlo al localStorage
+    const carritoJSON = JSON.stringify(productosEnElCarrito);
+    localStorage.setItem("carrito", carritoJSON);
+
     listadoCarrito.pop(productos[indiceEncontrado].burger);
     
     //Funcion total precio del carrito
@@ -107,11 +125,10 @@ function eliminarDelCarrito(idDeProducto){
     
     padreCarrito.innerHTML = `<h2>Precio del carrito : ${total}</h2>`;
     
-    alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
+    document.getElementById("cart").innerHTML =  `<span>Precio del carrito : ${listadoCarrito.length}</span>`;
+
+    //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
         
-    //console.log(productosEnElCarrito);
-    //console.log(total);
-    
 }
 
 
@@ -142,23 +159,7 @@ let paginadoDos = listado.slice(3,5);
 
 
 
-// const cartStorage=localStorage.getItem('cart');
-// const cart=JSON.parse(cartStorage)??[];
 
-// const cart=cartStorage;
-// document.write('Tenes en el carrito:'+cart.length);
-
-// document.getElementById("producto").onclick=()=>{
-//     agregarAlCarrito({id:1,title:'Zapas',price:9000})
-// }
-
-// const agregarAlCarrito=(producto)=>{
-//     cart.push(producto.id)
-//     const cartJSON=JSON.stringify(cart)
-//     localStorage.setItem('cart',cart JSON);
-//     
-//     console.log(cart);
-// }
 
 
 
