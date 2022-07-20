@@ -14,7 +14,10 @@ let acumulador = ``;
 let padreCarrito = document.createElement("span");
 
     
-// };
+
+
+
+
 
 for (let i = 0; i < productos.length; i++) {
     if (productos[i].stock) {
@@ -44,11 +47,11 @@ for (let i = 0; i < productos.length; i++) {
                 </div>
             </div>
             <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
-                <div onclick="agregarAlCarrito(${productos[i].id})"><a class="btn btn-outline-dark mt-auto" >Agregar al carrito</a></div>
+            <div  class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                <div id="btn-add" onclick="agregarAlCarrito(${productos[i].id})"><a class="btn btn-outline-dark mt-auto" >Agregar al carrito</a></div>
             </div>
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
-                <div onclick="eliminarDelCarrito(${productos[i].id})"><a class="btn btn-outline-dark mt-auto" >Eliminar del carrito</a></div>
+            <div  class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                <div id="btn-delete" onclick="eliminarDelCarrito(${productos[i].id})"><a class="btn btn-outline-dark mt-auto" >Eliminar del carrito</a></div>
             </div>
         </div>
         </div>
@@ -79,8 +82,17 @@ function agregarAlCarrito(idDeProducto){
     listadoCarrito.push(productos[indiceEncontrado].burger);
 
     let total = precioTotal(productosEnElCarrito);
-       
     
+    //Sweetalert2 del agregarAlCarrito
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+    })
+
+
     document.getElementById("cart").innerHTML =  `<span> Carrito:${listadoCarrito.length} - $${total}</span>`;
     
     //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
@@ -98,18 +110,38 @@ function eliminarDelCarrito(idDeProducto){
     
     //Comparo ID y pop
     const indiceEncontrado = productos.findIndex(producto => producto.id == idDeProducto);
-    productosEnElCarrito.pop(productos[indiceEncontrado]);
-    // Paso de obj a txt para mandarlo al localStorage
-    const carritoJSON = JSON.stringify(productosEnElCarrito);
-    localStorage.setItem("carrito", carritoJSON);
+    //Sweetalert2 del eliminarDelCarrito
+    Swal.fire({
+        title: 'Estás seguro?',
+        text: "No podrás volver atrás",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borralo!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            }
+            productosEnElCarrito.pop(productos[indiceEncontrado]);
+            // Paso de obj a txt para mandarlo al localStorage
+            const carritoJSON = JSON.stringify(productosEnElCarrito);
+            localStorage.setItem("carrito", carritoJSON);
+            let total = precioTotal(productosEnElCarrito);
+            document.getElementById("cart").innerHTML =  `<span> Carrito:${listadoCarrito.length} - $${total}</span>`;
+      })
 
     listadoCarrito.pop(productos[indiceEncontrado].burger);
     
     //Funcion total precio del carrito
-    let total = precioTotal(productosEnElCarrito);
     
 
-    document.getElementById("cart").innerHTML =  `<span> Carrito:${listadoCarrito.length} - $${total}</span>`;
+    
 
     //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
         
@@ -120,6 +152,12 @@ function eliminarDelCarrito(idDeProducto){
 document.body.append(padreCarrito);
 document.getElementById("cardProduct").innerHTML = acumulador;
 
+// const btn = document.getElementById("#btn-add");
+// let btnAgregar = btn.addEventListener("click",()=>{
+//     console.log("agregar producto");
+    
+// })
+// console.log(btnAgregar);
 
 
 //Listado de hamburguesas 
