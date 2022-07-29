@@ -13,11 +13,17 @@ let productosEnElCarrito =[];
 let acumulador = ``;
 let padreCarrito = document.createElement("span");
 
-    
+let burgers;
 
-
-
-
+const buscarProductosEnJSON = (burgersABuscar) => {
+    fetch("productos.json")
+    .then(response => response.json())
+    .then(data => {
+        burgers = data;
+        console.log(burgers);
+        //generadorCards(burgers)
+    })
+};
 
 for (let i = 0; i < productos.length; i++) {
     if (productos[i].stock) {
@@ -147,7 +153,7 @@ function eliminarDelCarrito(idDeProducto){
         
 }
 
-
+buscarProductosEnJSON();
 
 document.body.append(padreCarrito);
 document.getElementById("cardProduct").innerHTML = acumulador;
