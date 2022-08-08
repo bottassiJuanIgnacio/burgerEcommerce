@@ -107,18 +107,10 @@ async function agregarAlCarrito(idDeProducto){
 
 
     document.getElementById("cart").innerHTML =  `<span> Carrito:${cartStorage.length} - $${total}</span>`;
-    
-    //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
-    
+
 }
 
 
-
-
-/*TODO: Al eliminar: 1) elimina todo sin verificar si es ese el producto que se habia agregado anteriormente.
-* 2) Siempre se elimina el ultimo producto agregado pero si el cliente quiere agregar muchos productos y 
-* borrar uno en especifico no puede. 
-*/
 async function eliminarDelCarrito(idDeProducto){
     const productos =  await obtenerProductos();
     //Comparo ID y pop
@@ -153,52 +145,12 @@ async function eliminarDelCarrito(idDeProducto){
     }
 
     listadoCarrito.pop(productos[indiceEncontrado].burger);
-    
-    //Funcion total precio del carrito
-    
-
-    
-
-    //alert("Usted tiene "+ listadoCarrito.length + " producto/s en el carrito actual: " + listadoCarrito);
-        
+         
 }
 
 
 
 document.body.append(padreCarrito);
-//document.getElementById("cardProduct").innerHTML = acumulador;
 
-// const btn = document.getElementById("#btn-add");
-// let btnAgregar = btn.addEventListener("click",()=>{
-//     console.log("agregar producto");
-    
-// })
-// console.log(btnAgregar);
-
-
-//Listado de hamburguesas 
+ 
 let listado = productosMayorPrecio.concat(productosMenorPrecio);
-//console.log(listado);
-
-
-//SLICE para el paginado
-let paginadoUno = listado.slice(0,3);
-let paginadoDos = listado.slice(3,5);
-
-
-//INDEXOF
-// console.log(listado.indexOf("Le Blue"));
-
-
-
-// PUSH
-// console.log(productosMayorPrecio);
-// console.log(productosMenorPrecio);
-
-
-
-
-
-
-
-
